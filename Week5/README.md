@@ -14,7 +14,7 @@
 
 ### Langkah 2
 
-<img src="img/2.1.png">
+<img src="img/2.1.jpg">
 
 ### Langkah 3
 
@@ -130,7 +130,7 @@ Berikut adalah contoh penggunaan Date and Time Pickers.
 
 <img src="img/5.6.png">
 
-<img src="ims/5.7.png">
+<img src="img/5.7.png">
 
 
 # **TUGAS PRAKTIKUM**
@@ -243,10 +243,93 @@ Berikut adalah contoh penggunaan Date and Time Pickers.
 
     2. Sekarang, Tambahkan wrapping widget
 
+    <img src="img/Tugas4.10.gif">
 
-    3. 
+    3.  Letakkan kursor pada Paddingwidget, buka menu Refactor , lalu pilih Wrap with widget, Kemudian ubah menjadi Card.
+
+    <img src="img/Tugas4.11.gif">
+
+- #### **Theme and Style**
+
+    1. Lakukan perubahan pada metode BigCard's build().
+
+    <img src="img/Tugas4.12.gif">
+
+    2. Anda dapat mengubah warna ini, dan skema warna keseluruhan aplikasi, dengan menggulir ke atas MyAppdan mengubah warna benih di ColorSchemesana.
+
+    <img src="img/Tugas4.13.gif">
+
+- #### **Text Theme**
+
+    Lakukan perubahan pada metode BigCard's .build() untuk mengubah ukuran text lebih besar.
+
+    <img src="img/Tugas4.14.png">
+
+- #### **Improve Accessibility**
+
+    Gunakan Textproperti semanticsLabeluntuk mengganti konten visual widget teks dengan konten semantik yang lebih sesuai untuk pembaca layar:
+
+    <img src="img/Tugas4.15.png">
+
+- #### **Center the UI**
+
+    1. Buka MyHomePagemetode build(), dan buat perubahan untuk menempatkannya di tengah jendela/layar aplikasi.
+    Hasilnya child di dalam Columnsepanjang sumbu utamanya (vertikal).
+
+    <img src="img/Tugas4.16.png">
+
+    2. Verifikasi ini dengan menggunakan Widget Inspector..
+
+    <img src="img/tugas4.17.png">
+
+    3. Letakkan kursor Anda di Column, panggil menu Refactor (dengan Ctrl+.atau Cmd+.), dan pilih Wrap with Center.
+    Untuk memusatkan secara horizontal.
+
+    <img src="img/tugas4.18.png">
+
+    4. Hilangkan text 'a random AWESOME idea:' karena dengan danya UI sudah cukup masuk akal
+
+    <img src="img/Tugas4.19.png">
+
+- #### **Add Functionality (add business logic)**
+
+    Tambahkan beberapa kode pada MyAppState
+
+    <img src="img/Tugas4.20.png">
+
+- #### **Add Button**
+
+    Menambahkan tombol 'like' di sebelah kiri tombol 'next'
+
+    <img src="img/Tugas4.21.gif">
+
+- #### **Add Navigation**
+
+    1. Menambahkan navigasi untuk icon home dan like
+
+    <img src="img/tugas4.22.png">
+
+    2. Menambahkan fungsi dari tiap navigasi untuk beralih halaman
+
+    <img src="img/tugas4.23.gif">
+
+    3. Buat ukuran layar responsif
+
+    <img src="img/tugas4.24.gif">
+
+- #### **Add New Page**
+
+    Menambahkan halaman baru dan menambahkan fugsi like kedalam halaman tersbeut.
+
+    <img src="img/tugas4.25.gif">
+
+    praktikum selesai dilakukan.
 
 
 5. README.md berisi: capture hasil akhir tiap praktikum (side-by-side, bisa juga berupa file GIF agar terlihat proses perubahan ketika ada aksi dari pengguna) dengan menampilkan NIM dan Nama Anda sebagai ciri pekerjaan Anda.
 
+    Jawab: Hasil praktikum sudah laporkan pada langkah [praktikum](#praktikum)! diatas 
+
 6. Kumpulkan berupa link repository/commit GitHub Anda kepada dosen yang telah disepakati!
+
+    Jawab: https://github.com/Silfinazarina/25_Silfinazarina_PemrogramanMobile/tree/main/Week5 
