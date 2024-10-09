@@ -117,5 +117,163 @@ class MyApp extends StatelessWidget {
 ```
 <img src="img/03.png">
 
+## **Praktikum 2 - Implementasi Button Row**
+
+### **Langkah 1: Buat method Column _buildButtonColumn**
+
+Buatlah metode pembantu pribadi bernama buildButtonColumn(), yang mempunyai parameter warna, Icon dan Text, sehingga dapat mengembalikan kolom dengan widgetnya sesuai dengan warna tertentu.
+
+```dart
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  Widget _buildTitleSelection(){ 
+  return Container(
+  padding: const EdgeInsets.all(32), //tambah padding 32
+  child: Row(
+    children: [
+      Expanded(
+        /* soal 1*/
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, //menambahkan CrossAxisAlignment.start
+          children: [
+            /* soal 2*/
+            Container(
+              padding: const EdgeInsets.only(bottom: 8), //tambah padding 8
+              child: const Text(
+                'Wisata Gunung di Batu',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Text(
+              'Batu, Malang, Indonesia',
+              style: TextStyle(color: Colors.grey), //ubah ke abu-abu
+            ),
+          ],
+        ),
+      ),
+      /* soal 3*/
+      Icon(
+        Icons.star,   //tambah ikon star
+        color: Colors.red,  //tambah warna merah
+      ),
+      const Text('41'),
+    ],
+  ),
+);
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter layout: Nama dan NIM Anda',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('SILFI NAZARINA - 2241720054'),
+        ),
+        body: Column(
+          children: [
+            _buildTitleSelection(),
+          ]
+        ),
+      ),
+    );
+  }
+
+//penambahan method buildButtonColumn langkah 1
+  Column _buildButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icon, color: color),
+        Container(
+          margin: const EdgeInsets.only(top: 8),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: color,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+```
+
+### **Langkah 2: Buat Widget buttonSection**
+
+Buat Fungsi untuk menambahkan ikon langsung ke kolom. Teks berada di dalam Container dengan margin hanya di bagian atas, yang memisahkan teks dari ikon.
+
+Bangun baris yang berisi kolom-kolom ini dengan memanggil fungsi dan set warna, Icon, dan teks khusus melalui parameter ke kolom tersebut. Tambahkan kode berikut tepat di bawah deklarasi titleSection di dalam metode build()
+
+```dart
+...
+  @override
+  Widget build(BuildContext context) {
+
+    //penambahan kode praktikum 2
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.call, 'CALL'),
+        _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+        _buildButtonColumn(color, Icons.share, 'SHARE'),
+      ],
+    );
+  }
+...
+```
+
+### **Langkah 3: Tambah button section ke body**
+
+```dart
+...
+
+ @override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.call, 'CALL'),
+        _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+        _buildButtonColumn(color, Icons.share, 'SHARE'),
+      ],
+    );
+
+    return MaterialApp(
+      title: 'Flutter layout: Nama dan NIM Anda',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('SILFI NAZARINA - 2241720054'),
+        ),
+        body: Column(
+          children: [
+            _buildTitleSelection(),
+            buttonSection     //memaggil method buttonSection
+          ]
+        ),
+      ),
+    );
+  }
+
+...
+```
+<img src="img/04.png">
+
+
 
 
