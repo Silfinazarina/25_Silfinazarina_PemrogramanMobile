@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(bottom: 8), 
               child: const Text(
-                'Wisata Gunung di Batu',
+                'Museum Angkut',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -45,8 +45,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    //penambahan kode praktikum 2
     Color color = Theme.of(context).primaryColor;
 
     Widget buttonSection = Row(
@@ -58,16 +56,31 @@ class MyApp extends StatelessWidget {
       ],
     );
 
+    Widget textSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: const Text(
+        'Museum Angkut merupakan museum transportasi dan tempat wisata modern yang terletak di Kota Batu, Jawa Timur, sekitar 20 km dari Kota Malang.',
+        softWrap: true,
+      ),
+    );
+
     return MaterialApp(
       title: 'Flutter layout: Nama dan NIM Anda',
       home: Scaffold(
         appBar: AppBar(
           title: const Text('SILFI NAZARINA - 2241720054'),
         ),
-        body: Column(
+        body: ListView(
           children: [
+            Image.asset(
+              'images/museum_angkut.jpg',
+              width: 600,
+              height: 240,
+              fit: BoxFit.cover,
+            ),
             _buildTitleSelection(),
-            buttonSection     //memaggil method buttonSection
+            buttonSection,
+            textSection,     
           ]
         ),
       ),

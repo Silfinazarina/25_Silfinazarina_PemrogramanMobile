@@ -274,6 +274,75 @@ Bangun baris yang berisi kolom-kolom ini dengan memanggil fungsi dan set warna, 
 ```
 <img src="img/04.png">
 
+## **Praktikum 3 - Implementasi Text Section**
 
+### **Langkah 1: Buat Widget textSection**
 
+Tentukan bagian teks sebagai variabel. Masukkan teks ke dalam Container dan tambahkan padding di sepanjang setiap tepinya. Tambahkan kode berikut tepat di bawah deklarasi buttonSection.
 
+```dart
+...
+@override
+  Widget build(BuildContext context) {
+    Color color = Theme.of(context).primaryColor;
+
+    Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.call, 'CALL'),
+        _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+        _buildButtonColumn(color, Icons.share, 'SHARE'),
+      ],
+    );
+
+  //penambahan variabel textSection
+    Widget textSection = Container(
+      padding: const EdgeInsets.all(32),
+      child: const Text(
+        'Museum Angkut merupakan museum transportasi dan tempat wisata modern yang terletak di Kota Batu, Jawa Timur, sekitar 20 km dari Kota Malang.',
+        softWrap: true,
+      ),
+    );
+
+    return MaterialApp(
+      title: 'Flutter layout: Nama dan NIM Anda',
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('SILFI NAZARINA - 2241720054'),
+        ),
+        body: Column(
+          children: [
+            _buildTitleSelection(),
+            buttonSection,
+            textSection,     
+          ]
+        ),
+      ),
+    );
+  }
+  ...
+```
+
+Arti nilai softWrap = true, baris teks akan memenuhi lebar kolom sebelum membungkusnya pada batas kata.
+
+### **Langkah 2: Tambahkan variabel text section ke body**
+
+<img src="img/05.png">
+
+## **Praktikum 4 - Implementasi image section**
+
+### **Langkah 1: Siapkan aset gambar**
+
+Buatlah folder images di root project layout_flutter. Masukkan file gambar tersebut ke folder images, lalu set nama file tersebut ke file pubspec.yaml
+
+<img src="img/06.png">
+
+### **Langkah 2: Tambahkan gambar ke body**
+
+<img src="img/07.png">
+
+### **Langkah 3: Terakhir, ubah menjadi ListView**
+
+Atur semua elemen dalam ListView, bukan Column, karena ListView mendukung scroll yang dinamis saat aplikasi dijalankan pada perangkat yang resolusinya lebih kecil.
+
+<img src="img/08.png">
