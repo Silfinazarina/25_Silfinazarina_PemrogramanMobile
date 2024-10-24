@@ -101,4 +101,233 @@ Run aplikasi tersebut dengan tekan F5, output:
     - semanticsLabel: Label alternatif untuk aksesibilitas.
 
 
+## **Tugas Add Plugin Kamera**
+
+Tambahkan plugin untuk fungsi kamera pada aplikasi. Misalnya menggunakan plugin ini https://pub.dev/packages/camera (silakan boleh gunakan plugin lain).
+
+- tambah dependency di pubspec.yaml:
+
+    <img src="img/08.png">
+
+- menambah file camera_page.dart untuk menambah halaman baru untuk menampilkan deteksi oleh camera
+
+```dart
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
+
+class CameraPage extends StatefulWidget {
+  @override
+  _CameraPageState createState() => _CameraPageState();
+}
+
+class _CameraPageState extends State<CameraPage> {
+  CameraController? _cameraController;
+  List<CameraDescription>? cameras;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeCamera();
+  }
+
+  Future<void> _initializeCamera() async {
+    cameras = await availableCameras();
+    _cameraController = CameraController(cameras![0], ResolutionPreset.high);
+    await _cameraController?.initialize();
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_cameraController == null || !_cameraController!.value.isInitialized) {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Camera')),
+      body: CameraPreview(_cameraController!),
+    );
+  }
+
+  @override
+  void dispose() {
+    _cameraController?.dispose();
+    super.dispose();
+  }
+}
+```
+
+- menambahkan fungsi berpindah halaman dari main ke halaman camera
+
+```dart
+<!-- import class cameranya -->
+import 'package:flutter_plugin_pubdev/camera_page.dart';
+
+...
+
+<!-- Fungsinya -->
+void _openCamera() {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => CameraPage()), // Pindah ke halaman CameraScreen
+    );
+  }
+
+  ...
+
+  <!-- menambahkan button buka kamera -->
+  const SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: _openCamera, // Tombol untuk membuka kamera di halaman camera_page
+                child: const Text('Open Camera'),
+            ),
+```
+
+Output:
+
+<img src="img/09.gif">
+
+
+## **Tugas Add Plugin Animasi Loading dan Transisi**
+
+Tambahkan plugin animasi loading dan transisi.
+
+- Menambahkan dependency pluginnya di pubspec.yaml
+
+<img src="img/10.png">
+
+- Menambahkan kode pada main.dart 
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_plugin_pubdev/camera_page.dart';
+import 'package:flutter_plugin_pubdev/red_test_widget.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+  bool _isLoading = false;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    }); 
+  }
+
+// fungsi untuk membuka halaman kamera dengan loading dan animasi transisi
+  void _openCamera() async {
+    setState(() {
+      _isLoading = true; // Aktifkan loading saat memulai proses
+    });
+
+    setState(() {
+      _isLoading = false; // Matikan loading setelah selesai
+    });
+
+    // Navigasi dengan animasi transisi ke halaman kamera
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => CameraPage(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0); // Animasi dimulai dari bawah
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation, // Transisi pergeseran posisi
+            child: child,
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: _isLoading
+      ? const SpinKitCircle(color: Colors.blue, size: 50.0) // Animasi loading saat _isLoading true
+      : Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: Colors.yellowAccent,
+              width: 50,
+              child: const RedTextWidget(
+                        text: 'You have pushed the button this many times:',
+                      ),
+            ),
+            Container(
+                color: Colors.greenAccent,
+                width: 100,
+                child: const Text(
+                      'You have pushed the button this many times:',
+                      ),
+            ),
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _openCamera, // Tombol untuk membuka kamera di halaman camera_page
+              child: const Text('Open Camera'),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+```
+
+Output:
+
+<img src="img/11.gif">
+
+Walau tidak terlalu jelas, namun ketika tidak dilakukan screen record sebelumnya, animasi saat beralih dari camera page kembali ke homenya animasi bergerak kebawah.
 
